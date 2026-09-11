@@ -16,9 +16,14 @@
 #include <private/qguiapplication_p.h>
 
 #include <DSvgRenderer>
+#include <QCoreApplication>
 #include <QCryptographicHash>
+#include <QFuture>
 #include <QImageReader>
+#include <QPointer>
 #include <QStandardPaths>
+#include <QThread>
+#include <QThreadPool>
 #include <QtConcurrent>
 #include <QDir>
 
@@ -31,6 +36,49 @@ Q_LOGGING_CATEGORY(lcDSvg, "dde.dsvg")
 #else
 Q_LOGGING_CATEGORY(lcDSvg, "dde.dsvg", QtInfoMsg)
 #endif
+
+namespace {
+
+class IconCachePool final : public QThreadPool
+{
+public:
+    template<typename Function>
+    static QFuture<void> run(Function function)
+    {
+        if (IconCachePool *pool = instance())
+            return QtConcurrent::run(pool, function);
+        return QFuture<void>();
+    }
+
+private:
+    static IconCachePool *instance()
+    {
+        QCoreApplication *application = QCoreApplication::instance();
+        if (!application || QThread::currentThread() != application->thread())
+            return nullptr;
+
+        static QPointer<IconCachePool> pool;
+        if (pool && pool->stopped)
+            return nullptr;
+        if (!pool)
+            pool = new IconCachePool(application);
+        return pool;
+    }
+
+    explicit IconCachePool(QCoreApplication *application)
+        : QThreadPool(application)
+    {
+        connect(application, &QCoreApplication::aboutToQuit, this, [this] {
+            stopped = true;
+            clear();
+            waitForDone();
+        });
+    }
+
+    bool stopped = false;
+};
+
+} // namespace
 
 class QSvgIconEnginePrivate : public QSharedData
 {
@@ -232,7 +280,7 @@ QPixmap QSvgIconEngine::pixmap(const QSize &size, QIcon::Mode mode,
         const QImage image = renderer.toImage(actualSize);
 
         if (Q_LIKELY(!image.isNull() && !cacheFile.isEmpty())) {
-            auto result = QtConcurrent::run(QThreadPool::globalInstance(), [image, cacheFile, svgFile] {
+            auto result = IconCachePool::run([image, cacheFile, svgFile] {
                 QSaveFile file(cacheFile);
                 // 增加cache文件能被成功保存的概率
                 file.setDirectWriteFallback(true);
