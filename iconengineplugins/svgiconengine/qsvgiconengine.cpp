@@ -46,7 +46,7 @@ public:
     static QFuture<void> run(Function function)
     {
         if (IconCachePool *pool = instance())
-            return QtConcurrent::run(pool, function);
+            return QtConcurrent::run(static_cast<QThreadPool *>(pool), std::move(function));
         return QFuture<void>();
     }
 
