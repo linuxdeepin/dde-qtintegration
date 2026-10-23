@@ -657,6 +657,8 @@ QVariant QDeepinTheme::themeHint(QPlatformTheme::ThemeHint hint) const
     case ShowShortcutsInContextMenus:
         return false;
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    case QPlatformTheme::PasswordMaskCharacter:
+        return QVariant(QChar(0x25CF));
     case ButtonPressKeys:
         return QVariant::fromValue(QList<Qt::Key>({ Qt::Key_Enter, Qt::Key_Return, Qt::Key_Space, Qt::Key_Select } ));
 #endif
