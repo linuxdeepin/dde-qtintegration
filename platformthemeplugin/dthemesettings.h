@@ -58,7 +58,7 @@ public:
     DDpi scaleLogicalDpi() const;
     bool autoScaleWindow() const;
 
-signals:
+Q_SIGNALS:
     void valueChanged(const QString &key, const QVariant &oldValue, const QVariant &newValue);
     void iconThemeNameChanged(QString iconThemeName);
     void fallbackIconThemeNameChanged(QString fallbackIconThemeName);
