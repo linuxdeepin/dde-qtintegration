@@ -52,6 +52,7 @@ endif()
 )
 
 target_compile_definitions(unit-tests PRIVATE
+    QT_NO_KEYWORDS
     DIALOG_SERVICE="org.deepin.fakefilemanager.filedialog"
     META_FILE_BASE_DIR="${CMAKE_SOURCE_DIR}"
     UT_PLATFORMPLUGIN_PATH="${PLUGIN_OUTPUT_BASE_DIR}"

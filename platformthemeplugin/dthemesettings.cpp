@@ -251,27 +251,27 @@ void DThemeSettings::onConfigChanged()
 
         if (old_value != new_value) {
             if (v == ICON_THEME_NAME)
-                emit iconThemeNameChanged(new_value.toString());
+                Q_EMIT iconThemeNameChanged(new_value.toString());
             else if (v == F_ICON_THEME_NAME)
-                emit fallbackIconThemeNameChanged(new_value.toString());
+                Q_EMIT fallbackIconThemeNameChanged(new_value.toString());
             else if (v == SYSTEM_FONT)
-                emit systemFontChanged(new_value.toString());
+                Q_EMIT systemFontChanged(new_value.toString());
             else if (v == STYLE_NAMES)
-                emit styleNamesChanged(new_value.toStringList());
+                Q_EMIT styleNamesChanged(new_value.toStringList());
             else if (v == SYSTEM_FIXED_FONT)
-                emit systemFixedFontChanged(new_value.toString());
+                Q_EMIT systemFixedFontChanged(new_value.toString());
             else if (v == SYSTEM_FONT_POINT_SIZE)
-                emit systemFontPointSizeChanged(new_value.toInt());
+                Q_EMIT systemFontPointSizeChanged(new_value.toInt());
             else if (v == TOUCH_FLICK_BEGIN_MOVE_DELAY)
-                emit touchFlickBeginMoveDelayChanged(new_value.toInt());
+                Q_EMIT touchFlickBeginMoveDelayChanged(new_value.toInt());
             else if (v == SCREEN_SCALE_FACTORS)
-                emit screenScaleFactorsChanged(new_value.toByteArray());
+                Q_EMIT screenScaleFactorsChanged(new_value.toByteArray());
             else if (v == SCALE_FACTOR)
-                emit scaleFactorChanged(new_value.toReal());
+                Q_EMIT scaleFactorChanged(new_value.toReal());
             else if (v == SCALE_LOGICAL_DPI)
-                emit scaleLogicalDpiChanged(takePair(new_value));
+                Q_EMIT scaleLogicalDpiChanged(takePair(new_value));
 
-            emit valueChanged(v, old_value, new_value);
+            Q_EMIT valueChanged(v, old_value, new_value);
         }
     }
 }
