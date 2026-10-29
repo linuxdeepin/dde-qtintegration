@@ -3186,6 +3186,10 @@ ChameleonMovementAnimation *ChameleonStyle::drawMenuItemBackground(const QStyleO
 
         } while (false);
     }
+
+    if (!(option->state & QStyle::State_Enabled))
+        return nullptr;
+
     { // 无论如何都尝试绘制，因为可能有动画存在
         color = option->palette.highlight();
 
