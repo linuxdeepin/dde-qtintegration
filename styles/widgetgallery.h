@@ -33,7 +33,7 @@ class WidgetGallery : public QMainWindow
 public:
     WidgetGallery(QWidget *parent = 0);
 
-private slots:
+private Q_SLOTS:
     void changeStyle(int index);
     void changeStyle(const QString &styleName);
     void changePalette();
