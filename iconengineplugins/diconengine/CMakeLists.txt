@@ -12,6 +12,8 @@ dtk_add_plugin(
     SOURCES
       main.cpp
     HEADERS
+    DEFINITIONS
+      QT_NO_KEYWORDS
     DEPENDENCIES
       Qt${QT_VERSION_MAJOR}::GuiPrivate
       Dtk${DTK_NAME_SUFFIX}::Gui
