@@ -40,6 +40,8 @@ else()
     qt6_add_dbus_interface(DBUS_INTERFACES ${CMAKE_CURRENT_LIST_DIR}/xmls/com.deepin.filemanager.filedialog.xml filedialog_interface)
     qt6_add_dbus_interface(DBUS_INTERFACES ${CMAKE_CURRENT_LIST_DIR}/xmls/com.deepin.filemanager.filedialogmanager.xml filedialogmanager_interface)
 endif()
+list(APPEND DEFS QT_NO_KEYWORDS)
+
 dtk_add_plugin(
     NAME
         qdeepin
@@ -72,3 +74,7 @@ dtk_add_plugin(
     INCLUDE_DIRS
         ${CMAKE_CURRENT_BINARY_DIR}
 )
+
+if(QT_VERSION_MAJOR EQUAL 5)
+    set_source_files_properties(${3RD_PARTY_SOURCES} PROPERTIES COMPILE_FLAGS -UQT_NO_KEYWORDS)
+endif()

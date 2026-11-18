@@ -12,3 +12,5 @@ add_executable(gallery
 
 target_link_libraries(gallery PRIVATE Dtk${DTK_NAME_SUFFIX}::Widget)
 set_target_properties(gallery PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
+target_compile_definitions(gallery PRIVATE QT_NO_KEYWORDS)

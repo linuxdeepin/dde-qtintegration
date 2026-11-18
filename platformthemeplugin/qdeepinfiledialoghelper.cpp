@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2017 - 2023 UnionTech Software Technology Co., Ltd.
+ * SPDX-FileCopyrightText: 2017 - 2026 UnionTech Software Technology Co., Ltd.
  * SPDX-License-Identifier: LGPL-3.0-or-later
  */
 #include "qdeepinfiledialoghelper.h"
@@ -478,7 +478,7 @@ void QDeepinFileDialogHelper::applyOptions()
     if (options->initialDirectory().isLocalFile())
         setDirectory(options->initialDirectory());
 
-    foreach (const QUrl &filename, options->initiallySelectedFiles())
+    Q_FOREACH (const QUrl &filename, options->initiallySelectedFiles())
         selectFile(filename);
 
     selectNameFilter(options->initiallySelectedNameFilter());

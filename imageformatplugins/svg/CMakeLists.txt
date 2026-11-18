@@ -14,6 +14,8 @@ dtk_add_plugin(
         qsvgiohandler.cpp
     HEADERS
         qsvgiohandler.h
+        DEFINITIONS
+            QT_NO_KEYWORDS
     DEPENDENCIES
         Dtk${DTK_NAME_SUFFIX}::Gui
 )

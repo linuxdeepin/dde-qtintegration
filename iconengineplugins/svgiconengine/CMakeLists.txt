@@ -15,6 +15,8 @@ dtk_add_plugin(
       main.cpp
     HEADERS
       qsvgiconengine.h
+    DEFINITIONS
+      QT_NO_KEYWORDS
     DEPENDENCIES
       Qt${QT_VERSION_MAJOR}::GuiPrivate
       Dtk${DTK_NAME_SUFFIX}::Gui

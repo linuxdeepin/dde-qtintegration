@@ -15,6 +15,8 @@ dtk_add_plugin(
         chameleonstyle.h
         common.h
         dstyleanimation.h
+    DEFINITIONS
+        QT_NO_KEYWORDS
     DEPENDENCIES
         Dtk${DTK_NAME_SUFFIX}::Widget
         Qt${QT_VERSION_MAJOR}::CorePrivate
